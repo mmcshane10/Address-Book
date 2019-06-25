@@ -16,11 +16,25 @@ AddressBook.prototype.assignId = function() {
 //it takes an id as an argument. This will contain the unique ID we assigned to each Contact in the previous lesson. The method then loops through the AddressBook object's contacts array, checking each entry's id against the id provided to the findContact() method as an argument. When a match is found, the method returns the Contact object with that specific id.
 AddressBook.prototype.findContact = function(id) {
   for (var i=0; i< this.contacts.length; i++) {
-    if (this.contacts[i].id == id) {
+    if (this.contacts[i]) {
+      if (this.contacts[i].id == id) {
       return this.contacts[i];
     }
+  }
   };
 return false;
+}
+//It's very similar to findContact(). However, it deletes the contact with a matching ID and then returns true because the operation was completed. (If there's no record with a matching id to delete, it returns false.)
+AddressBook.prototype.deleteContact = function(id) {
+  for (var i=0; i< this.contacts.length; i++) {
+    if (this.contacts[i]) {
+      if (this.contacts[i].id == id) {
+        delete this.contacts[i];
+        return true;
+      }
+    }
+  };
+  return false;
 }
 
 //Also, notice we use a for loop instead of a forEach. This is because we can return from (or 'break out' of) a for loop. We can't escape from a forEach loop. We want to stop looping as soon as we find a matching id. It wouldn't be efficient if the loop continued even after finding a match, especially if there were a million records! If there's a Contact with a matching id, it returns the Contact. If there isn't, it returns false because there's no match.
