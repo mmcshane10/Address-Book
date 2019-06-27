@@ -58,8 +58,6 @@
 // User Interface Logic ---------
 
 
-
-
 // Business Logic for AddressBook ---------
 function AddressBook() {
   this.contacts = [],
@@ -100,10 +98,13 @@ AddressBook.prototype.deleteContact = function(id) {
 }
 
 // Business Logic for Contacts ---------
-function Contact(firstName, lastName, phoneNumber) {
+function Contact(firstName, lastName, phoneNumber, street, city, zipCode) {
   this.firstName = firstName,
   this.lastName = lastName,
-  this.phoneNumber = phoneNumber
+  this.phoneNumber = phoneNumber,
+  this.street = street,
+  this.city = city,
+  this.zipCode = zipCode
 }
 
 Contact.prototype.fullName = function() {
@@ -128,6 +129,10 @@ function showContact(contactId) {
   $(".first-name").html(contact.firstName);
   $(".last-name").html(contact.lastName);
   $(".phone-number").html(contact.phoneNumber);
+  $(".street").html(contact.street);
+  $(".city").html(contact.city);
+  $(".zip-code").html(contact.zipCode);
+
   var buttons = $("#buttons");
   buttons.empty();
   buttons.append("<button class='deleteButton' id=" + contact.id + ">Delete</button>");
@@ -151,10 +156,16 @@ $(document).ready(function() {
     var inputtedFirstName = $("input#new-first-name").val();
     var inputtedLastName = $("input#new-last-name").val();
     var inputtedPhoneNumber = $("input#new-phone-number").val();
+    var inputtedStreet = $("input#new-street").val();
+    var inputtedCity = $("input#new-city").val();
+    var inputtedZipCode = $("input#new-zip-code").val();
     $("input#new-first-name").val("");
     $("input#new-last-name").val("");
     $("input#new-phone-number").val("");
-    var newContact = new Contact(inputtedFirstName, inputtedLastName, inputtedPhoneNumber);
+    $("input#new-street").val("");
+    $("input#new-city").val("");
+    $("input#new-zip-code").val("");
+    var newContact = new Contact(inputtedFirstName, inputtedLastName, inputtedPhoneNumber, inputtedStreet, inputtedCity, inputtedZipCode);
     addressBook.addContact(newContact);
     displayContactDetails(addressBook);
   })
